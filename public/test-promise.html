@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /**
+        setTimeout(() => {
+            console.log("---第一层---")
+            setTimeout(() => {
+                console.log("---第二层---")
+                setTimeout(() => {
+                    console.log("---第三层---")
+                    setTimeout(() => {
+                        console.log("---第四层---")
+                    }, 2000);
+                }, 1000);
+            }, 2000);
+        }, 1000);
+        **/
+
+        function createPromise(str,time){
+            return new Promise((resolve,reject) => {
+                setTimeout(() => {
+                    resolve(str)
+                }, time);
+            })
+        }
+
+        createPromise("---第一层---",1000).then(res => {
+            console.log(res)
+
+            return createPromise("---第二层---",2000)
+        }).then(res2 => {
+            console.log(res2)
+
+            return createPromise("---第三层---",1000)
+        }).then(res3 => {
+            console.log(res3)
+
+            return createPromise("---第四层---",2000)
+        }).then(res4 => {
+            console.log(res4)
+        })
+
+    </script>
+</body>
+</html>
